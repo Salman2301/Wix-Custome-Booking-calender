@@ -1,7 +1,40 @@
 let today = new Date();
 
-flatpickr("#myDatePicker", {
-    mode: "range",
-    disable: ["2019-01-30", "2019-01-29", "2019-02-21", "2019-02-08", new Date(2019, 2, 9)],
-    minDate: "2019-01-28",
+let config = {};
+config.mode = "range";
+config.onChange = function(selectedDates, dateStr, instance) {
+   console.log("Date changed" , selectedDates ,dateStr,instance );
+   if(selectedDates.length > 1) {
+       sendDateMessage(selectedDates[0] , selectedDates[1]);
+   }
+}
+// disable: ["2019-01-30", "2019-01-29", "2019-02-21", "2019-02-08", new Date(2019, 2, 9)],
+var datepicker = flatpickr("#myDatePicker", config);
+
+$('#icon-calender').click(() => {
+    // Toggle is not working it's not closing the date picker
+    datepicker.toggle();
 });
+
+$("#icon-clear").click(function (e) {
+    datepicker.clear();
+});
+
+function sendDateMessage(fromDate, toDate) {
+    let postMessage = {
+        rangeDate: true,
+        fromDate,
+        toDate,
+    }
+    window.postMessage(postMessage , '*')
+}
+window.onmessage = event => {
+    console.log(event)
+    if (event.data) {
+        let msg = event.data;
+        if (msg.disable) {
+            config.disable = msg.disableData;
+            datepicker = flatpickr("#myDatePicker", config);
+        }
+    }
+}
