@@ -2,6 +2,7 @@ let today = new Date();
 
 let config = {};
 config.mode = "range";
+config.minDate = today;
 config.onChange = function(selectedDates, dateStr, instance) {
    console.log("Date changed" , selectedDates ,dateStr,instance );
    if(selectedDates.length > 1) {
