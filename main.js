@@ -36,5 +36,13 @@ window.onmessage = event => {
             config.disable = msg.disableData;
             datepicker = flatpickr("#myDatePicker", config);
         }
+
+        if(msg.ready){
+            sendReadyMessage()
+        }
     }
+}
+
+function sendReadyMessage(){
+    window.postMessage("ready", "*")
 }
