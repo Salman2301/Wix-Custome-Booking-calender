@@ -27,7 +27,7 @@ function sendDateMessage(fromDate, toDate) {
         fromDate,
         toDate,
     }
-    window.postMessage(postMessage , '*')
+    window.parent.postMessage(postMessage , '*')
 }
 window.onmessage = event => {
     console.log(event)
@@ -45,5 +45,5 @@ window.onmessage = event => {
 }
 
 function sendReadyMessage(){
-    window.postMessage("ready", "*")
+    window.parent.postMessage("ready", "*")
 }
