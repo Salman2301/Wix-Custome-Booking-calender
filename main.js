@@ -9,7 +9,6 @@ config.onChange = function(selectedDates, dateStr, instance) {
        sendDateMessage(selectedDates[0] , selectedDates[1]);
    }
 }
-// disable: ["2019-01-30", "2019-01-29", "2019-02-21", "2019-02-08", new Date(2019, 2, 9)],
 var datepicker = flatpickr("#myDatePicker", config);
 
 $('#icon-calender').click(() => {
@@ -19,6 +18,10 @@ $('#icon-calender').click(() => {
 
 $("#icon-clear").click(function (e) {
     datepicker.clear();
+    let postMessage = {
+        clear:true
+    }
+    window.parent.postMessage(postMessage , '*')
 });
 
 function sendDateMessage(fromDate, toDate) {
