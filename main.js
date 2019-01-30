@@ -48,5 +48,8 @@ window.onmessage = event => {
 }
 
 function sendReadyMessage(){
-    window.parent.postMessage("ready", "*")
+     let postMessage = {
+        ready: true,
+    }
+    window.parent.postMessage(postMessage, "*")
 }
